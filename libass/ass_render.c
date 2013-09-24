@@ -551,10 +551,10 @@ static void blend_vector_clip(ASS_Renderer *render_priv,
         bs = clip_bm->stride;
 
         // Calculate overlap coordinates
-        left = (ax > bx) ? ax : bx;
-        top = (ay > by) ? ay : by;
-        right = ((ax + aw) < (bx + bw)) ? (ax + aw) : (bx + bw);
-        bottom = ((ay + ah) < (by + bh)) ? (ay + ah) : (by + bh);
+        left = FFMAX(ax, bx);
+        top  = FFMAX(ay, by);
+        right  = FFMIN(ax + aw, bx + bw);
+        bottom = FFMIN(ay + ah, by + bh);
         aleft = left - ax;
         atop = top - ay;
         w = right - left;
